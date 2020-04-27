@@ -31,7 +31,7 @@
 
         <br><hr><br>
 
-        <table class="table table-sm table-bordered">
+        <table class="table table-sm table-bordered" v-if="showIssues">
             <thead>
             <tr>
                 <th width="100">Número</th>
@@ -40,24 +40,41 @@
             </thead>
 
             <tbody>
-            <tr>
-                <td class="text-center" colspan="2">Nenhuma issue encontrada!</td>
-            </tr>
+              <tr v-for="issue in issues" :key="issue.number">
+                <td>{{ issue.number }}</td>
+                <td>{{ issue.title }}</td>
+              </tr>
             </tbody>
         </table>
+
+        <p v-if="noIssues">
+          Nenhuma issue encontrada!
+        </p>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'GithubIssues',
 
   data(){
     return{
       username: '',
-      repository: ''
+      repository: '',
+      issues: [],
 
     }
+  },
+  computed: {
+    showIssues() {
+        return !!this.issues.length;
+    },
+
+    noIssues() {
+        return !this.issues.length;
+    },
   },
   methods:{
     reset() {
@@ -65,7 +82,10 @@ export default {
       this.repository = '';  
     },
     getIssues(){
-      console.log('here')
+      const url = `https://api.github.com/repos/${this.username}/${this.repository}/issues`;
+      axios.get(url).then((response) => {
+        this.issues = response.data;
+      });
     }
   },
   

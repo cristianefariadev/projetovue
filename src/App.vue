@@ -1,19 +1,17 @@
 <template>
   <div id="app"> 
-    <GithubIssues/>
+     <div class="container">
+        <h1>Vue.js + Github</h1>
+        <p class="lead">
+            Página que lista issues de um repositório do Github, usando Vue.js.
+        </p>
+
+        <router-view></router-view>
+     </div>
   </div>
 </template>
 
-<script>
-import GithubIssues from './components/GithubIssues.vue'
 
-export default {
-  name: 'App',
-  components: {
-    GithubIssues
-  }
-}
-</script>
 
 <style>
 #app {

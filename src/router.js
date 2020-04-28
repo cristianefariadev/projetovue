@@ -11,10 +11,12 @@ export default new VueRouter({
   routes:[
     {
       path:'/detalhes',
+      name: 'DetailsIssues',
       component: DetailsIssues 
     },
     {
       path:'/',
+      name: 'Home',
       component: GithubIssues
     },
   ]
